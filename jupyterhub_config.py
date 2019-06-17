@@ -42,7 +42,24 @@ c.DockerSpawner.volumes = { 'jupyterhub-user-{username}': notebook_dir }
 c.DockerSpawner.remove_containers = True
 # For debugging arguments passed to spawned containers
 c.DockerSpawner.debug = True
+
+
 c.Spawner.default_url = '/lab'
+
+## Disable per-user configuration of single-user servers.
+#
+#  When starting the user's single-user server, any config file found in the
+#  user's $HOME directory will be ignored.
+#
+#  Note: a user could circumvent this if the user modifies their Python
+#  environment, such as when they have their own conda environments / virtualenvs
+#  / containers.
+c.Spawner.disable_user_config = False
+
+c.SingleUserNotebookApp.default_url = '/lab'
+c.SingleUserNotebookApp.disable_user_config=True
+
+c.Spawner.cmd = ['jupyter-labhub']
 
 # User containers will access hub by container name on the Docker network
 c.JupyterHub.hub_ip = 'jupyterhub'
@@ -85,3 +102,4 @@ with open(os.path.join(pwd, 'userlist')) as f:
             whitelist.add(name)
             if len(parts) > 1 and parts[1] == 'admin':
                 admin.add(name)
+
