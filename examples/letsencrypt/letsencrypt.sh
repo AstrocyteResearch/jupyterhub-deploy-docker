@@ -65,7 +65,6 @@ docker run --rm -it \
   --non-interactive \
   --keep-until-expiring \
   --standalone \
-  --standalone-supported-challenges http-01 \
   --agree-tos \
   --force-renewal \
   --domain "$FQDN" \
